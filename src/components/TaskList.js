@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import Task from "./Task";
 
-function TaskList() {
+function TaskList({setUpdatedTasks, updatedTasks}) {
+
+
+  function handleDelClick(e) {
+    const tasksAfterDel = updatedTasks.filter(task => task.text !== e.target.previousSibling.textContent)
+    setUpdatedTasks(tasksAfterDel)
+  }
+
+  const tasksToDisplay = updatedTasks.map(task => {
+    return (<Task key={task.text} task={task} handleDelClick={handleDelClick}/>)
+  })
+
   return (
     <div className="tasks">
-      {/* display a list of tasks using Task component */}
+      {tasksToDisplay}
     </div>
   );
 }
